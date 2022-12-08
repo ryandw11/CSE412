@@ -165,7 +165,7 @@ app.get("/", (req, res) => {
         return;
     }
 
-    client.query(`SELECT * FROM game ORDER BY gameid DESC LIMIT 20 OFFSET ${(pageNumber - 1) * 20}`, (err, ress) => {
+    client.query(`SELECT * FROM game ORDER BY gameid DESC LIMIT 9 OFFSET ${(pageNumber - 1) * 9}`, (err, ress) => {
         if (err) {
             console.log(err);
         }
@@ -173,7 +173,7 @@ app.get("/", (req, res) => {
         client.query(`SELECT COUNT(*) AS count FROM game`, (err, result) => {
 
             const count = result.rows[0].count;
-            if (pageNumber > Math.ceil(count / 20) && Math.ceil(count / 20) != 0) {
+            if (pageNumber > Math.ceil(count / 9) && Math.ceil(count / 9) != 0) {
                 res.redirect('/');
                 return;
             }
@@ -181,18 +181,18 @@ app.get("/", (req, res) => {
             // The array of page numbers.
             let pages = [];
             // If there is a next page.
-            let hasNext = pageNumber * 20 < count;
+            let hasNext = pageNumber * 9 < count;
             // If there is a previous page.
-            let hasPrev = (pageNumber - 2) * 20 >= 0;
+            let hasPrev = (pageNumber - 2) * 9 >= 0;
 
             // This logic controls what numbers go in the array.
             if (hasPrev && hasNext) {
                 pages = [pageNumber - 1, pageNumber, pageNumber + 1];
             } else if (hasNext) {
                 pages = [pageNumber, pageNumber + 1];
-                if ((pageNumber + 1) * 20 < count) pages.push(pageNumber + 2);
+                if ((pageNumber + 1) * 9 < count) pages.push(pageNumber + 2);
             } else if (hasPrev) {
-                if ((pageNumber - 3) * 20 >= 0) pages = [pageNumber - 2, pageNumber - 1, pageNumber];
+                if ((pageNumber - 3) * 9 >= 0) pages = [pageNumber - 2, pageNumber - 1, pageNumber];
                 else pages = [pageNumber - 1, pageNumber];
             }
             // If there is no next or previous page.
