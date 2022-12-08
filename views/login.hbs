@@ -1,0 +1,78 @@
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login | CSE412 Form System</title>
+
+    {{> common_css}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+
+<body>
+    {{> head}}
+    <style>
+        form {
+            width: 50%;
+            margin: auto;
+        }
+
+        #loginSubmit,
+        #signupSubmit {
+            display: block;
+            width: 100px;
+            margin: auto;
+            margin-top: 30px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #create {
+            text-align: center;
+        }
+    </style>
+    <!-- The main content -->
+    <main>
+        {{!-- Login --}}
+        <h1>Login</h1>
+        <div id="login-error" style="display: none;" class="alert alert-danger container w-20" role="alert">
+            <i data-feather="alert-circle"></i>
+            <span>An error has occured!</span>
+        </div>
+        <div id="login-success" style="display: none;" class="alert alert-success container w-20" role="alert">
+            <i data-feather="info"></i>
+            <span></span>
+        </div>
+        <form id="login" action="/auth/login" method="post" class="container needs-validation" novalidate>
+            <label for="username" class="form-label">Username:</label>
+            <input name="username" id="username" type="text" class="form-control" required />
+            <div class="invalid-feedback">
+                Please enter in a username.
+            </div>
+            <label for="password" class="form-label">Password:</label>
+            <input name="password" type="password" class="form-control" required />
+            <div class="invalid-feedback">
+                Please enter in a password.
+            </div>
+            <input type="submit" value="Login" id="loginSubmit" class="btn btn-success" />
+        </form>
+
+        <p id="create"><a href="/create-account">Or create a new account!</a></p>
+    </main>
+
+    <script src="/javascript/bootstrap_form.js"></script>
+    <script src="/javascript/login.js"></script>
+
+    <script>
+        function onLoginSubmit(token) {
+            document.getElementById("login").submit();
+        }
+    </script>
+    <script src="/feather.min.js"></script>
+    <script>
+        feather.replace({ width: '24', height: '24', 'stroke-width': '1' });
+    </script>
+
+    {{> scripts}}
+</body>

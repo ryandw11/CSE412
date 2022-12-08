@@ -1,0 +1,71 @@
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{game.title}} | Game System</title>
+
+    {{> common_css}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+
+<body>
+    {{> head}}
+
+    <main class="container">
+        <section class="card mt-3 mb-5">
+            <div class="card-body">
+                <img src="{{game.gamepicture}}" alt="" class="game-pic-large">
+                <h1 class="card-title">{{game.title}}</h1>
+                <p class="card-text">{{game.description}}</p>
+            </div>
+            <div class="card-footer d-flex justify-content-around" style="gap: 10px;">
+                <p>Created By: <a href="/profile/{{game.userid}}" class="user-name-replace">{{game.userid}}</a> <img
+                        src="{{game.userid}}" alt="" class="user-image-replace profile-pic-small" /></p>
+                {{#ifEq game.userid user.id}}
+                <p><a href="/delete/game/{{game.gameid}}" class="text-danger">Delete Game</a></p>
+                {{else}}
+                {{/ifEq}}
+                <a {{#if user.loggedin}}href="/favorite-game/{{game.gameid}}" {{/if}}><span
+                        class="favorite-replace">{{game.gameid}}</span></a>
+            </div>
+        </section>
+        <h6>Comments:</h6>
+        {{#each comments}}
+        <section class="card mt-2 mb-2" id="{{commentid}}">
+            <div class="card-body">
+                <p class="card-text">{{description}}</p>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-around">
+                    <div><img src="{{userid}}" alt="" class="user-image-replace profile-pic-small" />
+                        <a href="/profile/{{userid}}" class="user-name-replace">{{userid}}</a>
+                    </div>
+                    <a {{#if ../user/loggedin}}href="/helpful-comment/{{../game.gameid}}/{{commentid}}" {{/if}}>Helpful!
+                        <span class="badge upvote-replace bg-danger">{{commentid}}</span></a>
+                </div>
+            </div>
+        </section>
+        {{/each}}
+        {{#if user.loggedin}}
+        <style>
+            #messagebody {
+                height: 200px;
+            }
+        </style>
+        <form action="/game/comment/{{game.gameid}}" method="post" class="mt-3 needs-validation" novalidate>
+            <div class="mb-3 form-floating">
+                <textarea name="description" id="messagebody" class="form-control" placeholder="Post Message"
+                    required></textarea>
+                <div class="invalid-feedback">
+                    Please provide a message!
+                </div>
+                <label for="description">Post Comment</label>
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">Comment</button>
+            <script src="/javascript/bootstrap_form.js"></script>
+        </form>
+        {{/if}}
+    </main>
+
+    {{> scripts}}
+</body>

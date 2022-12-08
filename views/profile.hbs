@@ -1,0 +1,79 @@
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{profile.username}}'s Profile | CSE 412 Game System</title>
+
+    {{> common_css}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+
+<body>
+    {{> head}}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <img src="{{profile.profilepicture}}" alt="{{profile.username}}'s Profile Picture" srcset=""
+                class="profile-pic-medium mr-3" />
+            <h1 class="text-center">{{profile.username}}</h1>
+        </div>
+    </div>
+
+    <h2 class="text-center text-primary">Favorite Games:</h2>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3">
+            {{#each favoriteGames}}
+            <div class="col">
+                <section class="card mt-2">
+                    <a href="/game/{{gameid}}"><img src="{{gamepicture}}" alt="" class="game-pic"></a>
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="/game/{{gameid}}">{{title}}</a></h5>
+                        <p class="card-text">{{trim description 100}}</p>
+                    </div>
+                </section>
+            </div>
+            {{/each}}
+        </div>
+        {{#isEmpty favoriteGames}}
+        <p class="container text-center">{{profile.username}} has no favorite games!</p>
+        {{/isEmpty}}
+    </div>
+
+    <h2 class="text-center text-primary">Games:</h2>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3">
+            {{#each games}}
+            <div class="col">
+                <section class="card mt-2">
+                    <a href="/game/{{gameid}}"><img src="{{gamepicture}}" alt="" class="game-pic"></a>
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="/game/{{gameid}}">{{title}}</a></h5>
+                        <p class="card-text">{{trim description 100}}</p>
+                    </div>
+                </section>
+            </div>
+            {{/each}}
+        </div>
+        {{#isEmpty games}}
+        <p class="container text-center">{{profile.username}} has no games!</p>
+        {{/isEmpty}}
+    </div>
+    <h2 class="text-center text-primary">Recent Comments:</h2>
+    <div class="container">
+        {{#each comments}}
+        <section class="card mt-2">
+            <div class="card-body">
+                <h5 class="card-title">Comment made in <a href="/game/{{gameid}}#{{commentid}}"
+                        class="game-id-to-title">{{gameid}}</a>.</h5>
+                <h6 class="card-subtitle text-muted">Helpful? <span class="upvote-replace">{{commentid}}</span></h6>
+                <p class="card-text">{{trim description 200}}</p>
+            </div>
+        </section>
+        {{/each}}
+        {{#isEmpty comments}}
+        <p class="container text-center">{{profile.username}} has no recent comments!</p>
+        {{/isEmpty}}
+    </div>
+
+    {{> scripts}}
+</body>

@@ -1,0 +1,53 @@
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Add Game | CSE 412 Honors</title>
+
+    {{> common_css}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+
+<body>
+    {{> head}}
+
+    <style>
+        #desc {
+            height: 300px;
+        }
+    </style>
+
+    <h2 class="text-center text-primary">Add Game</h2>
+
+    <section class="container">
+        <form action="/add/game" method="post" class="needs-validation" novalidate>
+            <div class="mb-3 form-floating">
+
+                <input id="title" name="title" type="text" class="form-control" placeholder="Title" required/>
+                <div class="invalid-feedback">
+                    Please input a title.
+                </div>
+                <label for="title">Game Title</label>
+            </div>
+            <div class="mb-3 form-floating">
+
+                <input id="console" name="console" type="text" class="form-control" placeholder="Consoles"/>
+                <label for="console">Platforms</label>
+            </div>
+            <div class="mb-3 form-floating">
+
+                <input id="pic" name="pic" type="text" class="form-control" placeholder="Picture"/>
+                <label for="pic">Game Picture</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <textarea name="desc" id="desc" class="form-control"
+                    placeholder="Post Message"></textarea>
+                <label for="desc">Game Description</label>
+            </div>
+            <button type="submit" class="btn btn-success mb-3">Add Game</button>
+        </form>
+    </section>
+
+    {{> scripts}}
+    <script src="/javascript/bootstrap_form.js"></script>
+</body>

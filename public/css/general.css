@@ -1,0 +1,35 @@
+.profile-pic-small {
+    width: 30px;
+    height: auto;
+}
+
+.profile-pic-medium {
+    width: 200px !important;
+    height: auto;
+}
+
+.profile-pic-medium-small {
+    width: 150px !important;
+    height: auto;
+}
+
+.game-pic {
+    display: block;
+    width: 150px !important;
+    height: auto;
+    margin: auto;
+}
+
+.game-pic-large {
+    display: block;
+    width: 300px !important;
+    height: auto;
+    margin: auto;
+}
+
+
+.block {
+    display: block;
+    width: 30%;
+    margin: auto;
+}

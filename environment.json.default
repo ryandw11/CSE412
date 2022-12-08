@@ -1,0 +1,11 @@
+{
+    "db": {
+        "user": "postgres",
+        "host": "localhost",
+        "database": "gameproject",
+        "password": "",
+        "port": 5432
+    },
+    "debug": true,
+    "port": 8080
+}
