@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const app = express();
 const helmet = require('helmet');
-const { Client } = require('pg');
+const { Client } = require('pg'); // Postgre Library
 
 // Setup the handlebars template engine.
 const hbs = require('express-handlebars').engine({
@@ -156,6 +156,10 @@ function isLoggedIn(req) {
 
     return req.session.user.loggedin;
 }
+
+/*
+    Get Section
+*/
 
 app.get("/", (req, res) => {
     let pageNumber = parseInt(req.query.pge);
@@ -519,6 +523,10 @@ app.get("/add-game", (req, res) => {
     res.render("add-game", { user: req.session.user, page: "addgame" });
 });
 
+/*
+    Post Section
+*/
+
 app.post("/add/game", (req, res) => {
     if (!isLoggedIn(req)) {
         res.redirect("/");
@@ -538,9 +546,8 @@ app.post("/add/game", (req, res) => {
     client.query(`INSERT INTO game (title, console, gamePicture, description, userID) VALUES ($1, $2, $3, $4, $5)`, 
         [title, conzole, picture, description, req.session.user.id], (err, result) => {
         if (err) {
-            console.log(err);
-            // res.redirect("/");
-            // return;
+            res.redirect("/");
+            return;
         }
 
         res.redirect("/");
@@ -569,8 +576,7 @@ app.post("/auth/login", (req, res) => {
         req.session.user = {
             loggedin: true,
             username: user.username,
-            id: user.userid,
-            isadmin: user.isadministrator
+            id: user.userid
         };
 
         res.redirect("/");
@@ -649,6 +655,7 @@ app.get("/delete/game/:gameid", (req, res) => {
     client.query(`SELECT * from game WHERE gameid = ${gameid}`, (err, postResponse) => {
         if(err || postResponse.rowCount < 1) {
             res.redirect("/#err");
+            return;
         }
 
         if(postResponse.rows[0].userid != req.session.user.id) {
